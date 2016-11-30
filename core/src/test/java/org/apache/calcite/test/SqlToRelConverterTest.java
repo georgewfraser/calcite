@@ -1985,6 +1985,12 @@ public class SqlToRelConverterTest extends SqlToRelTestBase {
     sql(sql).ok();
   }
 
+  @Test public void testSelectNestedFromSubquery() throws Exception {
+    final String sql = "select t.nested.\"EXPR$0\" as id from (" +
+                       "  select (1, 2) as nested) as t";
+    sql(sql).ok();
+  }
+
   /**
    * Visitor that checks that every {@link RelNode} in a tree is valid.
    *

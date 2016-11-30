@@ -8422,6 +8422,15 @@ public class SqlValidatorTest extends SqlValidatorTestCase {
         + "  from \"DYNAMIC\".NATION, \"DYNAMIC\".CUSTOMER)";
     sql(sql).type("RecordType(ANY NEWID) NOT NULL");
   }
+
+  /**
+   * Matches {@link SqlToRelConverterTest#testSelectNestedFromSubquery()}
+   */
+  @Test public void testSelectNestedFromSubquery() throws Exception {
+    final String sql = "select t.nested.\"EXPR$0\" as id from (" +
+                       "  select (1, 2) as nested) as t";
+    sql(sql).type("RecordType(INTEGER NOT NULL ID) NOT NULL");
+  }
 }
 
 // End SqlValidatorTest.java
